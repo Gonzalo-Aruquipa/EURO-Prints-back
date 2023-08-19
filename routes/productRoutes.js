@@ -1,9 +1,9 @@
 const Router = require("express");
-const userController = require("../controllers/userController");
+const productController = require("../controllers/productController");
 
 const router = Router();
 
-  router.get("/", userController.register);
+  router.get("/", productController.newProduct);
   // router.post("/login", userController.login);
 
  

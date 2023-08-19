@@ -1,9 +1,9 @@
 const Router = require("express");
-const userController = require("../controllers/userController");
+const printController = require("../controllers/printController");
 
 const router = Router();
 
-  router.get("/", userController.register);
+  router.get("/", printController.newPrint);
   // router.post("/login", userController.login);
 
  

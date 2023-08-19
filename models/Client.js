@@ -19,10 +19,10 @@ const Client = db.define(
   },
   
 );
-(async () => {
-  await db.sync({ force: true });
-  // Code here
-})();
+// (async () => {
+//   await db.sync({ force: true });
+//   // Code here
+// })();
 
 module.exports  = Client;
 

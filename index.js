@@ -2,10 +2,16 @@
 const express  = require( "express");
 const usuarioRoutes =require("./routes/userRoutes") ;
 const clientRoutes = require("./routes/clientRoutes");
+const productRoutes = require("./routes/productRoutes");
+const printRoutes = require("./routes/printRoutes");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const  db  = require("./db.js");
+
+const Print = require("./models/Print");
+const User = require("./models/User");
+const Client = require("./models/Client");
 
 
 const app = express();
@@ -23,6 +29,11 @@ try {
 
 app.use("/user", usuarioRoutes );
 app.use("/client", clientRoutes );
+app.use("/product", productRoutes );
+app.use("/print", printRoutes );
+
+Print.belongsTo(Client);
+Print.belongsTo(User);
 
 
 
