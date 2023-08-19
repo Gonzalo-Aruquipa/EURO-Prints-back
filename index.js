@@ -1,6 +1,7 @@
 
 const express  = require( "express");
 const usuarioRoutes =require("./routes/userRoutes") ;
+const clientRoutes = require("./routes/clientRoutes");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -21,6 +22,9 @@ try {
 }
 
 app.use("/user", usuarioRoutes );
+app.use("/client", clientRoutes );
+
+
 
 app.listen(3000, ()=>{
   console.log("listening on port 3000")

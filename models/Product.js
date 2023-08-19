@@ -1,29 +1,18 @@
 const { Sequelize, DataTypes } =require("sequelize");
 const  db  = require("../db");
 
-const User = db.define(
-  "user",
+const Product = db.define(
+  "product",
   {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    username: {
+    userId: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    role: {
-      type: DataTypes.STRING,
-    },
-    active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    date_u: {
+    fecha: {
       type: DataTypes.DATEONLY,
       allowNull: false,
     }
@@ -35,5 +24,5 @@ const User = db.define(
 //   // Code here
 // })();
 
-module.exports  = User;
+module.exports  = Product;
 
