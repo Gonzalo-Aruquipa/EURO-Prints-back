@@ -10,6 +10,7 @@ const User = db.define(
     },
     username: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
     },
     password: {
@@ -32,7 +33,7 @@ const User = db.define(
 );
 // (async () => {
 //   await db.sync({ force: true });
-//   // Code here
+//   Code here
 // })();
 
 module.exports  = User;
