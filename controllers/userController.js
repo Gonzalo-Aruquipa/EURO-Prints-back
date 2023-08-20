@@ -45,3 +45,13 @@ exports.login = async (req, res) => {
     res.status(401).send("El usuario no existe");
   }
 };
+exports.logicdelete = async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findOne({ where: { id: id } });
+
+  !user.active ? (user.active = true) : (user.active = false);
+
+  await user.save();
+  res.status(200).send("OK");
+};
