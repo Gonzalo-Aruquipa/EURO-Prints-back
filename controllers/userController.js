@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
-const User = require("../models/User")
-
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 exports.register = async (req, res) => {
   const user = new User(req.body);
@@ -15,30 +15,33 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email: email });
+  const { username, password } = req.body;
+  const user = await User.findOne({ where: { username: username } });
 
   if (user) {
     const validPassword = await bcrypt.compareSync(password, user.password);
     if (validPassword) {
-      const token = jwt.sign(
-        {
-          id: user.id,
-          name: user.name,
-          perfil: user.perfil,
-          email: user.email,
-        },
-        "top_secret",
-        {
-          expiresIn: "1d",
-        }
-      );
-      res.send(token);
+      if (!user.active) {
+        res.status(400).send("Su usuario no está activado");
+      } else {
+        const token = jwt.sign(
+          {
+            id: user.id,
+            name: user.name,
+            perfil: user.perfil,
+            username: user.username,
+          },
+          "top_secret",
+          {
+            expiresIn: "1h",
+          }
+        );
+        res.send(token);
+      }
     } else {
-      res.status(400).send("Incorrect password");
+      res.status(400).send("Contraseña Incorrecta");
     }
   } else {
-    res.status(401).send("Invalid User");
+    res.status(401).send("El usuario no existe");
   }
 };

@@ -22,7 +22,6 @@ const User = db.define(
     },
     active: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
     date_u: {
       type: DataTypes.DATEONLY,
@@ -33,7 +32,7 @@ const User = db.define(
 );
 // (async () => {
 //   await db.sync({ force: true });
-//   Code here
+//   // Code here
 // })();
 
 module.exports  = User;
