@@ -7,7 +7,7 @@ const router = Router();
   router.post("/login", userController.login);
   router.post("/logic/:id", userController.logicdelete);
   router.get("/users", userController.getAllusers);
-  // router.get("/user/:id", userController.getUserId);
+  router.get("/user/:id", userController.getUserId);
 
  
 module.exports = router

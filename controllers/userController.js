@@ -66,6 +66,15 @@ exports.getAllusers = async(req, res) =>{
   }
 }
 
+exports.getUserId = async(req, res) => {
+  const {id} = req.params;
 
+  try {
+    const user = await User.findByPk(id);
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send("Usuario No Válido");
+  }
+}
 
 
