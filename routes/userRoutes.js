@@ -8,6 +8,7 @@ const router = Router();
   router.post("/logic/:id", userController.logicdelete);
   router.get("/users", userController.getAllusers);
   router.get("/user/:id", userController.getUserId);
+  router.put("/update-user/:id", userController.updateUser);
 
  
 module.exports = router

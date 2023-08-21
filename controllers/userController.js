@@ -50,31 +50,53 @@ exports.logicdelete = async (req, res) => {
 
   const user = await User.findOne({ where: { id: id } });
 
-  !user.active ? (user.active = true) : (user.active = false);
+  user.active = !user.active;
 
   await user.save();
   res.status(200).send("OK");
 };
 
-exports.getAllusers = async(req, res) =>{
-
+exports.getAllusers = async (req, res) => {
   try {
     const users = await User.findAll();
-    res.status(200).send(users)
+    res.status(200).send(users);
   } catch (error) {
     res.status(400).send(error);
   }
-}
+};
 
-exports.getUserId = async(req, res) => {
-  const {id} = req.params;
+exports.getUserId = async (req, res) => {
+  const { id } = req.params;
 
   try {
     const user = await User.findByPk(id);
     res.status(200).send(user);
   } catch (error) {
-    res.status(400).send("Usuario No Válido");
+    res.status(400).send(error);
   }
-}
+};
 
+exports.updateUser = async (req, res) => {
+  const { id } = req.params;
 
+  const { name, password, role } = req.body;
+  const salt = await bcrypt.genSaltSync(10);
+
+  try {
+    const response = await User.update(
+      {
+        name: name,
+        password: await bcrypt.hashSync(password, salt),
+        role: role,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+    res.send(response);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
