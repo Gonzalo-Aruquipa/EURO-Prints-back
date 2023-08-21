@@ -28,8 +28,8 @@ exports.login = async (req, res) => {
           {
             id: user.id,
             name: user.name,
-            perfil: user.perfil,
             username: user.username,
+            role: user.role,
           },
           "top_secret",
           {
@@ -55,3 +55,17 @@ exports.logicdelete = async (req, res) => {
   await user.save();
   res.status(200).send("OK");
 };
+
+exports.getAllusers = async(req, res) =>{
+
+  try {
+    const users = await User.findAll();
+    res.status(200).send(users)
+  } catch (error) {
+    res.status(400).send(error);
+  }
+}
+
+
+
+
