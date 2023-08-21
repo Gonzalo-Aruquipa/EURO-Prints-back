@@ -100,3 +100,13 @@ exports.updateUser = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
+exports.deleteUser =async(req, res) => {
+  const {id} = req.params;
+  try {
+    await User.destroy({where:{id:id}})
+    res.send("Usuario Eliminado Correctamente")
+  } catch (error) {
+    res.status(400).send(error)
+  }
+}
