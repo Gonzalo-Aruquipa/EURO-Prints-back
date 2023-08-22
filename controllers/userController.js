@@ -3,7 +3,13 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 exports.register = async (req, res) => {
+  const {username}= req.body;
   const user = new User(req.body);
+
+  const response =await  User.findOne({where:{username: username}})
+  if(response){
+    return res.status(400).send("El usuario ingresado ya existe")
+  }
   try {
     const salt = await bcrypt.genSaltSync(10);
     user.password = await bcrypt.hashSync(user.password, salt);
